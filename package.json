@@ -1,0 +1,19 @@
+{
+  "name": "@kim5257app/js-util",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kim5257app/js-util.git"
+  },
+  "author": "Jaegu Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kim5257app/js-util/issues"
+  },
+  "homepage": "https://github.com/kim5257app/js-util#readme"
+}
