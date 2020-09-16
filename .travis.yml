@@ -7,4 +7,4 @@ script:
   - yarn build
   - yarn test
   - yarn cover
-after_script: "cat coverage/lcov.info | node_module/coveralls/bin/coveralls.js"
+after_script: "cat coverage/lcov.info | coveralls"
