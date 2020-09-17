@@ -15,13 +15,6 @@ class Type {
         return ret;
     }
     unescapeUnicode(data) {
-        function doUnescape(str) {
-            let val = str;
-            if (typeof str === 'string') {
-                val = str.replace(/\u200B/g, '').trim();
-            }
-            return val;
-        }
         function loopUnescape(child) {
             let ret = null;
             switch (typeof child) {
@@ -38,7 +31,7 @@ class Type {
                     break;
                 }
                 case 'string':
-                    ret = doUnescape(child);
+                    ret = child.replace(/\u200B/g, '').trim();
                     break;
                 default:
                     ret = child;

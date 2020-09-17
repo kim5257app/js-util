@@ -42,6 +42,14 @@ describe('type.unescapeUnicode test', () => {
     expect(comp === output).to.equal(true);
   });
 
+  it('Non string', () => {
+    const input = 1234;
+    const comp = 1234;
+    const output = util.type.unescapeUnicode(input);
+
+    expect(comp === output).to.equal(true);
+  });
+
   it('Object type', () => {
     const input = {
       a: 'abc123!@#',

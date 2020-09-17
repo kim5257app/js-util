@@ -15,16 +15,6 @@ export class Type {
   }
 
   unescapeUnicode(data: any): any {
-    function doUnescape(str: any): any {
-      let val = str;
-
-      if (typeof str === 'string') {
-        val = str.replace(/\u200B/g, '').trim();
-      }
-
-      return val;
-    }
-
     function loopUnescape(child: any): any {
       let ret: any = null;
 
@@ -43,7 +33,7 @@ export class Type {
           break;
         }
         case 'string':
-          ret = doUnescape(child);
+          ret = child.replace(/\u200B/g, '').trim();
           break;
         default:
           ret = child;
