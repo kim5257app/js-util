@@ -7,5 +7,8 @@ script:
   - yarn build
   - yarn test
   - yarn cover
-  - yarn publish
 after_script: "cat coverage/lcov.info | coveralls"
+deploy:
+  provider: npm
+  email: "kim5257app@gmail.com"
+  api_key: $NPM_TOKEN
