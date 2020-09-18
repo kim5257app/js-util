@@ -1,6 +1,6 @@
 {
   "name": "@kim5257app/js-util",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Utility tools to my project personal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
