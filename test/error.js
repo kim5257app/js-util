@@ -11,10 +11,10 @@ describe('Error test', () => {
     } catch (error) {
       const err = util.Error.make(error);
 
-      if ( (err.result != null)
+      if ((err.result != null)
         && (err.code != null)
         && (err.name != null)
-        && (err.message != null) ) {
+        && (err.message != null)) {
         ret = true;
       }
     }
@@ -33,10 +33,10 @@ describe('Error test', () => {
         message: 'Unknown Error',
       });
     } catch (error) {
-      if ( (error.result != null)
+      if ((error.result != null)
         && (error.code != null)
         && (error.name != null)
-        && (error.message != null) ) {
+        && (error.message != null)) {
         ret = true;
       }
     }
@@ -48,10 +48,10 @@ describe('Error test', () => {
     let ret = false;
     const fail = util.Error.makeFail('ERROR', 'Unknown Error');
 
-    if ( (fail.result != null)
+    if ((fail.result != null)
       && (fail.code != null)
       && (fail.name != null)
-      && (fail.message != null) ) {
+      && (fail.message != null)) {
       ret = true;
     }
 
@@ -64,12 +64,50 @@ describe('Error test', () => {
     try {
       util.Error.throwFail('ERROR', 'Unknown Error');
     } catch (error) {
-      if ( (error.result != null)
+      if ((error.result != null)
         && (error.code != null)
         && (error.name != null)
-        && (error.message != null) ) {
+        && (error.message != null)) {
         ret = true;
       }
+    }
+
+    expect(ret).to.equal(true);
+  });
+
+  it('Error.make without name', () => {
+    let ret = false;
+    const fail = util.Error.make({
+      result: 'error',
+      code: -1,
+      message: 'Unknown Error',
+    });
+
+    if ((fail.result != null)
+      && (fail.code != null)
+      && (fail.name != null)
+      && (fail.name === 'ERROR')
+      && (fail.message != null)) {
+      ret = true;
+    }
+
+    expect(ret).to.equal(true);
+  });
+
+  it('Error.make without message', () => {
+    let ret = false;
+    const fail = util.Error.make({
+      result: 'error',
+      code: -1,
+      name: 'ERROR',
+    });
+
+    if ((fail.result != null)
+      && (fail.code != null)
+      && (fail.name != null)
+      && (fail.message != null)
+      && (fail.message === 'ERROR')) {
+      ret = true;
     }
 
     expect(ret).to.equal(true);
