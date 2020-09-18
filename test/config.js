@@ -1,2 +1,19 @@
 exports = {
+  jwt: {
+    secret: 'f74b2fed0eb8828a2243f063cf267c433fb3686ad83c9884a283844840d65be5b963a575f44a895d82acc3f4b5c5b1242418052f81635199bd223dbdb7b36f62',
+    options: {
+      refresh: { algorithm: 'HS512', expiresIn: '100y' },
+      access: { algorithm: 'HS512', expiresIn: '1h' },
+      cert: { algorithm: 'HS512', expiresIn: '5m' },
+    },
+  },
+  aes: {
+    key: [
+      0x59, 0x17, 0x6c, 0x10, 0xf2, 0x21, 0x43, 0x11,
+      0x6e, 0x11, 0x33, 0x23, 0x4a, 0x6d, 0x4f, 0x1b,
+      0x21, 0x61, 0x74, 0x10, 0x6d, 0x65, 0x20, 0x6d,
+      0x6f, 0x16, 0x61, 0xa2, 0x6f, 0x63, 0xc1, 0xee,
+    ],
+    counter: 5,
+  },
 };
