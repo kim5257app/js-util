@@ -2,9 +2,9 @@ import { v4 as uuid4v } from 'uuid';
 import jwt, {SignOptions} from 'jsonwebtoken';
 
 interface JWTOptions {
-  refresh?: SignOptions,
-  access?: SignOptions,
-  cert?: SignOptions,
+  refresh: SignOptions,
+  access: SignOptions,
+  cert: SignOptions,
 }
 
 interface JWT {
@@ -18,8 +18,8 @@ interface AES {
 }
 
 interface Config {
-  jwt?: JWT,
-  aes?: AES,
+  jwt: JWT,
+  aes: AES,
 }
 
 export class Cert {
@@ -47,9 +47,21 @@ export class Cert {
   constructor() {
   }
 
-  setOptions(config: object): void {
+  setOptions(config: { jwt?: JWT, aes?: AES }): void {
     // 기존 값에 새로운 값을 덮어씌도록 함
-    this.config = { ...this.config, ...config };
+    if (config.jwt != null) {
+      this.config = {
+        ...this.config,
+        jwt: config.jwt,
+      }
+    }
+
+    if (config.aes != null) {
+      this.config = {
+        ...this.config,
+        aes: config.aes,
+      }
+    }
   }
 
   makeCertNumber(): string {
@@ -57,28 +69,27 @@ export class Cert {
   }
 
   makeRefreshToken(payload: object): string {
-    let ret: string;
-    const config = this.config.jwt;
-
-    if (config != null) {
-      ret = jwt.sign(payload, config.secret, config.options.refresh);
-    } else {
-      ret = '';
-    }
-
-    return ret;
+    console.log('secret:', JSON.stringify(this));
+    return jwt.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
   }
 
   verifyRefreshToken(token: string): object | string {
-    let ret: object | string;
-    const config = this.config.jwt;
+    return jwt.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+  }
 
-    if (config != null) {
-      ret = jwt.verify(token, config.secret, config.options.refresh);
-    } else {
-      ret = {}
-    }
+  makeAccessToken(payload: object): string {
+    return jwt.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+  }
 
-    return ret;
+  verifyAccessToken(token: string): object | string {
+    return jwt.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+  }
+
+  makeCertToken(payload: object): string {
+    return jwt.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+  }
+
+  verifyCertToken(token: string): object | string {
+    return jwt.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
   }
 }

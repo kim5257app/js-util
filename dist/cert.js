@@ -31,32 +31,34 @@ class Cert {
     }
     setOptions(config) {
         // 기존 값에 새로운 값을 덮어씌도록 함
-        this.config = Object.assign(Object.assign({}, this.config), config);
+        if (config.jwt != null) {
+            this.config = Object.assign(Object.assign({}, this.config), { jwt: config.jwt });
+        }
+        if (config.aes != null) {
+            this.config = Object.assign(Object.assign({}, this.config), { aes: config.aes });
+        }
     }
     makeCertNumber() {
         return parseInt(uuid_1.v4().slice(0, 5), 16).toString().slice(0, 5);
     }
     makeRefreshToken(payload) {
-        let ret;
-        const config = this.config.jwt;
-        if (config != null) {
-            ret = jsonwebtoken_1.default.sign(payload, config.secret, config.options.refresh);
-        }
-        else {
-            ret = '';
-        }
-        return ret;
+        console.log('secret:', JSON.stringify(this));
+        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
     }
     verifyRefreshToken(token) {
-        let ret;
-        const config = this.config.jwt;
-        if (config != null) {
-            ret = jsonwebtoken_1.default.verify(token, config.secret, config.options.refresh);
-        }
-        else {
-            ret = {};
-        }
-        return ret;
+        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+    }
+    makeAccessToken(payload) {
+        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+    }
+    verifyAccessToken(token) {
+        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+    }
+    makeCertToken(payload) {
+        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+    }
+    verifyCertToken(token) {
+        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
     }
 }
 exports.Cert = Cert;

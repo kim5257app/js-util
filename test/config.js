@@ -1,4 +1,4 @@
-exports = {
+module.exports = {
   jwt: {
     secret: 'f74b2fed0eb8828a2243f063cf267c433fb3686ad83c9884a283844840d65be5b963a575f44a895d82acc3f4b5c5b1242418052f81635199bd223dbdb7b36f62',
     options: {
