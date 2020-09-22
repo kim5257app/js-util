@@ -75,6 +75,25 @@ describe('Error test', () => {
     expect(ret).to.equal(true);
   });
 
+  it('Error.make without code', () => {
+    let ret = false;
+    const fail = util.Error.make({
+      result: 'error',
+      name: 'ERROR',
+      message: 'Unknown Error',
+    });
+
+    if ((fail.result != null)
+      && (fail.code != null)
+      && (fail.name != null)
+      && (fail.name === 'ERROR')
+      && (fail.message === 'Unknown Error')) {
+      ret = true;
+    }
+
+    expect(ret).to.equal(true);
+  });
+
   it('Error.make without name', () => {
     let ret = false;
     const fail = util.Error.make({

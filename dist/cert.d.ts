@@ -1,28 +1,10 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
-interface JWTOptions {
-    refresh: SignOptions;
-    access: SignOptions;
-    cert: SignOptions;
-}
-interface JWT {
-    secret: jwt.Secret;
-    options: JWTOptions;
-}
-interface AES {
-    key: Array<Number>;
-    counter: number;
-}
-interface Config {
-    jwt: JWT;
-    aes: AES;
-}
+import { UtilConfig } from './config';
 export declare class Cert {
-    config: Config;
+    defConfig: UtilConfig;
+    config: UtilConfig;
     constructor();
-    setOptions(config: {
-        jwt?: JWT;
-        aes?: AES;
-    }): void;
+    resetOptions(): void;
+    setOptions(config: UtilConfig): void;
     makeCertNumber(): string;
     makeRefreshToken(payload: object): string;
     verifyRefreshToken(token: string): object | string;
@@ -31,4 +13,3 @@ export declare class Cert {
     makeCertToken(payload: object): string;
     verifyCertToken(token: string): object | string;
 }
-export {};

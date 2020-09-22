@@ -9,7 +9,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class Cert {
     constructor() {
         // 기본 값
-        this.config = {
+        this.defConfig = {
             jwt: {
                 secret: '0000',
                 options: {
@@ -28,6 +28,10 @@ class Cert {
                 counter: 5,
             },
         };
+        this.config = this.defConfig;
+    }
+    resetOptions() {
+        this.config = Object.assign({}, this.defConfig);
     }
     setOptions(config) {
         // 기존 값에 새로운 값을 덮어씌도록 함
@@ -42,23 +46,22 @@ class Cert {
         return parseInt(uuid_1.v4().slice(0, 5), 16).toString().slice(0, 5);
     }
     makeRefreshToken(payload) {
-        console.log('secret:', JSON.stringify(this));
         return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
     }
     verifyRefreshToken(token) {
         return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
     }
     makeAccessToken(payload) {
-        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.access);
     }
     verifyAccessToken(token) {
-        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.access);
     }
     makeCertToken(payload) {
-        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.cert);
     }
     verifyCertToken(token) {
-        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.cert);
     }
 }
 exports.Cert = Cert;

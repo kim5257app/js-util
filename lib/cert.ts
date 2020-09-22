@@ -1,30 +1,10 @@
 import { v4 as uuid4v } from 'uuid';
-import jwt, {SignOptions} from 'jsonwebtoken';
-
-interface JWTOptions {
-  refresh: SignOptions,
-  access: SignOptions,
-  cert: SignOptions,
-}
-
-interface JWT {
-  secret: jwt.Secret,
-  options: JWTOptions,
-}
-
-interface AES {
-  key: Array<Number>,
-  counter: number,
-}
-
-interface Config {
-  jwt: JWT,
-  aes: AES,
-}
+import jwt from 'jsonwebtoken';
+import { UtilConfig } from './config';
 
 export class Cert {
   // 기본 값
-  config: Config = {
+  defConfig: UtilConfig = {
     jwt: {
       secret: '0000',
       options: {
@@ -44,10 +24,16 @@ export class Cert {
     },
   };
 
+  config: UtilConfig = this.defConfig;
+
   constructor() {
   }
 
-  setOptions(config: { jwt?: JWT, aes?: AES }): void {
+  resetOptions(): void {
+    this.config = { ...this.defConfig };
+  }
+
+  setOptions(config: UtilConfig): void {
     // 기존 값에 새로운 값을 덮어씌도록 함
     if (config.jwt != null) {
       this.config = {
@@ -69,27 +55,26 @@ export class Cert {
   }
 
   makeRefreshToken(payload: object): string {
-    console.log('secret:', JSON.stringify(this));
-    return jwt.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+    return jwt.sign(payload, this.config.jwt!.secret, this.config.jwt!.options.refresh);
   }
 
   verifyRefreshToken(token: string): object | string {
-    return jwt.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+    return jwt.verify(token, this.config.jwt!.secret, this.config.jwt!.options.refresh);
   }
 
   makeAccessToken(payload: object): string {
-    return jwt.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+    return jwt.sign(payload, this.config.jwt!.secret, this.config.jwt!.options.access);
   }
 
   verifyAccessToken(token: string): object | string {
-    return jwt.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+    return jwt.verify(token, this.config.jwt!.secret, this.config.jwt!.options.access);
   }
 
   makeCertToken(payload: object): string {
-    return jwt.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+    return jwt.sign(payload, this.config.jwt!.secret, this.config.jwt!.options.cert);
   }
 
   verifyCertToken(token: string): object | string {
-    return jwt.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+    return jwt.verify(token, this.config.jwt!.secret, this.config.jwt!.options.cert);
   }
 }
