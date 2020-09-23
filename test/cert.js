@@ -8,7 +8,7 @@ describe('cert.makeCertNumber test', () => {
     let ret = true;
 
     // 모두 숫자인지, 길이는 5자리인지 확인
-    const certNumber = util.cert.makeCertNumber();
+    const certNumber = util.Cert.makeCertNumber();
 
     const number = parseInt(certNumber);
     if (isNaN(number) || number.toString().length !== 5) {

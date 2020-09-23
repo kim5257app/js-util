@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const jsonwebtoken_1 = require("jsonwebtoken");
 class Cert {
     constructor() {
         // 기본 값
@@ -41,26 +38,26 @@ class Cert {
             this.config = Object.assign(Object.assign({}, this.config), { aes: config.aes });
         }
     }
-    makeCertNumber() {
+    static makeCertNumber() {
         return parseInt(uuid_1.v4().slice(0, 5), 16).toString().slice(0, 5);
     }
     makeRefreshToken(payload) {
-        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
+        return jsonwebtoken_1.sign(payload, this.config.jwt.secret, this.config.jwt.options.refresh);
     }
     verifyRefreshToken(token) {
-        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
+        return jsonwebtoken_1.verify(token, this.config.jwt.secret, this.config.jwt.options.refresh);
     }
     makeAccessToken(payload) {
-        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.access);
+        return jsonwebtoken_1.sign(payload, this.config.jwt.secret, this.config.jwt.options.access);
     }
     verifyAccessToken(token) {
-        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.access);
+        return jsonwebtoken_1.verify(token, this.config.jwt.secret, this.config.jwt.options.access);
     }
     makeCertToken(payload) {
-        return jsonwebtoken_1.default.sign(payload, this.config.jwt.secret, this.config.jwt.options.cert);
+        return jsonwebtoken_1.sign(payload, this.config.jwt.secret, this.config.jwt.options.cert);
     }
     verifyCertToken(token) {
-        return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.cert);
+        return jsonwebtoken_1.verify(token, this.config.jwt.secret, this.config.jwt.options.cert);
     }
 }
 exports.default = Cert;

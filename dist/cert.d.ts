@@ -4,7 +4,7 @@ export default class Cert {
     config: UtilConfig;
     resetOptions(): void;
     setOptions(config: UtilConfig): void;
-    makeCertNumber(): string;
+    static makeCertNumber(): string;
     makeRefreshToken(payload: object): string;
     verifyRefreshToken(token: string): object | string;
     makeAccessToken(payload: object): string;

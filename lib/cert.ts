@@ -1,5 +1,5 @@
 import { v4 as uuid4v } from 'uuid';
-import jwt from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { UtilConfig } from './config';
 
 export default class Cert {
@@ -47,31 +47,31 @@ export default class Cert {
     }
   }
 
-  makeCertNumber(): string {
+  static makeCertNumber(): string {
     return parseInt(uuid4v().slice(0, 5), 16).toString().slice(0, 5);
   }
 
   makeRefreshToken(payload: object): string {
-    return jwt.sign(payload, this.config.jwt!.secret, this.config.jwt!.options.refresh);
+    return sign(payload, this.config.jwt!.secret, this.config.jwt!.options.refresh);
   }
 
   verifyRefreshToken(token: string): object | string {
-    return jwt.verify(token, this.config.jwt!.secret, this.config.jwt!.options.refresh);
+    return verify(token, this.config.jwt!.secret, this.config.jwt!.options.refresh);
   }
 
   makeAccessToken(payload: object): string {
-    return jwt.sign(payload, this.config.jwt!.secret, this.config.jwt!.options.access);
+    return sign(payload, this.config.jwt!.secret, this.config.jwt!.options.access);
   }
 
   verifyAccessToken(token: string): object | string {
-    return jwt.verify(token, this.config.jwt!.secret, this.config.jwt!.options.access);
+    return verify(token, this.config.jwt!.secret, this.config.jwt!.options.access);
   }
 
   makeCertToken(payload: object): string {
-    return jwt.sign(payload, this.config.jwt!.secret, this.config.jwt!.options.cert);
+    return sign(payload, this.config.jwt!.secret, this.config.jwt!.options.cert);
   }
 
   verifyCertToken(token: string): object | string {
-    return jwt.verify(token, this.config.jwt!.secret, this.config.jwt!.options.cert);
+    return verify(token, this.config.jwt!.secret, this.config.jwt!.options.cert);
   }
 }
