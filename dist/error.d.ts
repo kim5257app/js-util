@@ -15,4 +15,4 @@ export declare class Error {
     static makeFail(name: string, message: string): Error;
     static throwFail(name: string, message: string): void;
 }
-export {};
+export default Error;

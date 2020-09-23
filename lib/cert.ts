@@ -2,7 +2,7 @@ import { v4 as uuid4v } from 'uuid';
 import jwt from 'jsonwebtoken';
 import { UtilConfig } from './config';
 
-export class Cert {
+export default class Cert {
   // 기본 값
   defConfig: UtilConfig = {
     jwt: {
@@ -26,9 +26,6 @@ export class Cert {
 
   config: UtilConfig = this.defConfig;
 
-  constructor() {
-  }
-
   resetOptions(): void {
     this.config = { ...this.defConfig };
   }
@@ -39,14 +36,14 @@ export class Cert {
       this.config = {
         ...this.config,
         jwt: config.jwt,
-      }
+      };
     }
 
     if (config.aes != null) {
       this.config = {
         ...this.config,
         aes: config.aes,
-      }
+      };
     }
   }
 

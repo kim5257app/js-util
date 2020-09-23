@@ -1,5 +1,4 @@
-import { Type } from './type';
-import { Cert } from './cert';
-export { Error } from './error';
-export declare const type: Type;
+import Cert from './cert';
+export { default as Type } from './type';
+export { default as Error } from './error';
 export declare const cert: Cert;

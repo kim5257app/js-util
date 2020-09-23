@@ -42,3 +42,4 @@ class Error {
     }
 }
 exports.Error = Error;
+exports.default = Error;

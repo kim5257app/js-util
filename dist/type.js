@@ -1,10 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Type = void 0;
 class Type {
-    constructor() {
-    }
-    isJSON(str) {
+    static isJSON(str) {
         let ret = true;
         try {
             JSON.parse(str);
@@ -14,7 +11,7 @@ class Type {
         }
         return ret;
     }
-    unescapeUnicode(data) {
+    static unescapeUnicode(data) {
         function loopUnescape(child) {
             let ret = null;
             switch (typeof child) {
@@ -42,4 +39,4 @@ class Type {
         return loopUnescape(data);
     }
 }
-exports.Type = Type;
+exports.default = Type;

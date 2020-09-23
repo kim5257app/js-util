@@ -1,8 +1,7 @@
 import { UtilConfig } from './config';
-export declare class Cert {
+export default class Cert {
     defConfig: UtilConfig;
     config: UtilConfig;
-    constructor();
     resetOptions(): void;
     setOptions(config: UtilConfig): void;
     makeCertNumber(): string;

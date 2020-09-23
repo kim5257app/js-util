@@ -1,5 +1,4 @@
-export declare class Type {
-    constructor();
-    isJSON(str: string): boolean;
-    unescapeUnicode(data: any): any;
+export default class Type {
+    static isJSON(str: string): boolean;
+    static unescapeUnicode(data: any): any;
 }

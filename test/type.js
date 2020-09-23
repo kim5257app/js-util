@@ -15,13 +15,13 @@ describe('type.isJSON test', () => {
       },
     };
 
-    expect(util.type.isJSON(JSON.stringify(obj))).to.equal(true);
+    expect(util.Type.isJSON(JSON.stringify(obj))).to.equal(true);
   });
 
   it('Input not JSON data', () => {
     const str = '{ a: 1, b: true }';
 
-    expect(util.type.isJSON(str)).to.equal(false);
+    expect(util.Type.isJSON(str)).to.equal(false);
   });
 });
 
@@ -29,7 +29,7 @@ describe('type.unescapeUnicode test', () => {
   it('Single ascii string', () => {
     const input = 'abcdefg';
     const comp = 'abcdefg';
-    const output = util.type.unescapeUnicode(input);
+    const output = util.Type.unescapeUnicode(input);
 
     expect(comp === output).to.equal(true);
   });
@@ -37,7 +37,7 @@ describe('type.unescapeUnicode test', () => {
   it('Single unicode string', () => {
     const input = '\uD14C\uC2A4\uD2B8';
     const comp = '테스트';
-    const output = util.type.unescapeUnicode(input);
+    const output = util.Type.unescapeUnicode(input);
 
     expect(comp === output).to.equal(true);
   });
@@ -45,7 +45,7 @@ describe('type.unescapeUnicode test', () => {
   it('Non string', () => {
     const input = 1234;
     const comp = 1234;
-    const output = util.type.unescapeUnicode(input);
+    const output = util.Type.unescapeUnicode(input);
 
     expect(comp === output).to.equal(true);
   });
@@ -89,7 +89,7 @@ describe('type.unescapeUnicode test', () => {
       },
     };
 
-    const output = util.type.unescapeUnicode(input);
+    const output = util.Type.unescapeUnicode(input);
 
     expect(JSON.stringify(comp) === JSON.stringify(output)).to.equal(true);
   });

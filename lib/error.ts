@@ -7,8 +7,11 @@ interface ErrorInfo {
 
 export class Error {
   public result: string = 'error';
+
   public code: string | number = '-1';
+
   public name: string = 'ERROR';
+
   public message: string = 'ERROR';
 
   constructor(error: ErrorInfo) {
@@ -42,3 +45,5 @@ export class Error {
     });
   }
 }
+
+export default Error;

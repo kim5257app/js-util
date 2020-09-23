@@ -1,8 +1,5 @@
-export class Type {
-  constructor() {
-  }
-
-  isJSON(str: string): boolean {
+export default class Type {
+  static isJSON(str: string): boolean {
     let ret: boolean = true;
 
     try {
@@ -14,11 +11,11 @@ export class Type {
     return ret;
   }
 
-  unescapeUnicode(data: any): any {
+  static unescapeUnicode(data: any): any {
     function loopUnescape(child: any): any {
       let ret: any = null;
 
-      switch(typeof child) {
+      switch (typeof child) {
         case 'object': {
           if (child != null) {
             ret = {};

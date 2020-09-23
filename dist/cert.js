@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Cert = void 0;
 const uuid_1 = require("uuid");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class Cert {
@@ -64,4 +63,4 @@ class Cert {
         return jsonwebtoken_1.default.verify(token, this.config.jwt.secret, this.config.jwt.options.cert);
     }
 }
-exports.Cert = Cert;
+exports.default = Cert;
